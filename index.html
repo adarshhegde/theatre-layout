@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="seat-booking.css">
+</head>
+
+<style>
+    body{
+        --body-image:url(https://images.indianexpress.com/2022/06/777-charlie.jpg);
+    }
+</style>
+
+<body class="style2">
+
+    <div class="content">
+        <h1>Charlie 777</h1>
+        <p>A naughty and energetic pup named Charlie gives a lonely and reclusive man a new perspective towards his life. Watch the beautiful bond between Dharma & his pup Charlie in the superhit movie!</p>
+        
+        <div class="languages-and-duration">
+            <div class="languages">
+                <span>Kannada</span>
+                <span>Hindi</span>
+                <span>Telugu</span>
+                <span>Tamil</span>
+            </div>
+
+            <div class="duration">
+                2 Hours
+            </div>
+        </div>
+
+        <div class="ratings">
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+        </div>
+
+        <button class="book-seats">Book Now!</button>
+    </div>
+
+        
+
+    <div class="theatre-layout">
+
+        <div class="gold-section"></div>
+
+        <div class="regular-section">
+            <div class="left"></div>
+            <div class="center"></div>
+            <div class="right"></div>
+        </div>
+
+        <div class="diamond-section"></div>
+        <div class="screen"></div>
+
+    </div>
+
+
+    <script>
+
+        let gold_rows = 3; // these values will be pre-populated from server side.
+        // for example: 
+
+        // let gold_rows = <% out.println(goldrows_retreived_from_db_in_jsp_code); %>;
+
+        let gold_cols = 25;
+
+        let diamond_rows = 3;
+        let diamond_cols = 25;
+
+        let left_rows = 10;
+        let left_cols = 10;
+
+        let right_rows = 10;
+        let right_cols = 10;
+
+        const left = document.querySelector(".left");
+        const right = document.querySelector(".right");
+        const gold = document.querySelector(".gold-section");
+
+        const diamond = document.querySelector(".diamond-section");
+
+        let char = 65;
+
+        function fillGoldSeats() {
+            for (let i = 0; i < gold_rows; i++) {
+
+            let seatrow = `<div class='seat-row'
+                        data-alpha="${String.fromCharCode(char++)}">`;
+
+                        for (let j = 0; j < gold_cols; j++) {
+                            let seat = `<div
+                                    class='seat'
+                                    id="${i}:${j}">
+                                    </div>`;
+                            seatrow += seat;
+                        }
+
+            seatrow += `</div>`;
+
+            gold.innerHTML += seatrow;
+            }
+        }
+
+        function fillSilverSeats() {
+            for (let i = 0; i < left_rows; i++) {
+
+            let seatrow = `<div class='seat-row' data-alpha="${String.fromCharCode(char++)}">`;
+
+                for (let j = 0; j < left_cols; j++) {
+                    let seat = `<div 
+                                    class='seat' 
+                                    id="${i}:${j}">
+                                </div>`;
+                    seatrow += seat;
+                }
+
+            seatrow += `</div>`;
+
+            left.innerHTML += seatrow;
+            }
+
+            for (let i = 0; i < right_rows; i++) {
+
+            let seatrow = `<div class='seat-row' data-alpha="${String.fromCharCode(char++)}">`;
+
+            for (let j = 0; j < right_cols; j++) {
+                seatrow += `<div class='seat' id="${i}:${j}"></div>`;
+            }
+
+            seatrow += `</div>`;
+
+            right.innerHTML += seatrow;
+            }
+        }
+
+        function fillDiamondSeats() {
+
+            for (let i = 0; i < diamond_rows; i++) {
+                let seatrow = `<div class='seat-row' data-alpha="${String.fromCharCode(char++)}">`;
+
+                for (let j = 0; j < diamond_cols; j++) {
+                    seatrow += `<div class='seat' id="${i}:${j}"></div>`;
+                }
+
+                seatrow += `</div>`;
+
+                diamond.innerHTML += seatrow;
+            }
+        }
+
+        function generate() {
+
+           
+            fillGoldSeats();
+            fillSilverSeats();
+            fillDiamondSeats();
+        
+
+        }
+
+        generate();
+
+        const seats = [...document.getElementsByClassName("seat")]
+        for (let seat of seats) {
+            seat.onclick = function (e) {
+                if (e.target.classList.contains("booked")) return;
+                e.target.classList.toggle("selected");
+            }
+        }
+    </script>
+
+</body>
+
+</html>
